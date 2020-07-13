@@ -1,0 +1,68 @@
+.page {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--black);
+}
+
+@keyframes world {
+	from {
+		transform: rotateZ(0);
+	}
+
+	to {
+		transform: rotateZ(360deg);
+	}
+}
+
+.world {
+	position: absolute;
+	width: 2000px;
+	bottom: -1500px;
+	right: -1000px;
+	transform-origin: center center;
+	animation: world 500s linear infinite;
+}
+
+.satsContainer {
+	position: absolute;
+	bottom: -1500px;
+	right: -900px;
+}
+
+@for $i from 1 through 6 {
+	.satsContainer:nth-child(#{$i}) {
+		// VARIABLES ALEATORIAS
+		$rotation: random(360);
+		$timeS: random(100) + 50;
+		$translate: random(50) + 50;
+		$width: random(20) + 1800;
+
+		// ANIMACIONES
+		@keyframes satAnim {
+			from {
+				transform: rotateZ(#{$rotation}deg);
+			}
+
+			to {
+				transform: rotateZ(#{$rotation - 360}deg);
+			}
+		}
+
+		// ROTAR CONTENEDOR
+		width: #{$width}px;
+		height: #{$width}px;
+		animation: satAnim #{$timeS}s linear infinite;
+
+		// ROTAR IMAGEN
+		img {
+			animation: world #{$translate}s linear infinite;
+		}
+	}
+}
+
+.satsContainer > img {
+	width: 12%;
+}
